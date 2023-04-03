@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div>
+        <h2><p class="text-center">Enter information about user:</p></h2>
+    </div>
+    <div th:fragment="create">
+        <form th:action="@{/admin/create}" th:method="POST" th:object="${newUser}">
+            <div class="form-group">
+                <p>
+                    <label for="firstName">
+                        <strong>First name</strong>
+                    </label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" th:field="${newUser.firstName}" required>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    <label for="lastName">
+                        <strong>Last name</strong>
+                    </label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" th:field="${newUser.lastName}" required>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    <label for="age">
+                        <strong>Age</strong>
+                    </label>
+                    <input type="number" class="form-control" id="age" name="age" th:field="${newUser.age}" required>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    <label for="email">
+                        <strong>Email</strong>
+                    </label>
+                    <input type="email" class="form-control" id="email" name="email" th:field="${newUser.email}" required>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    <label for="password">
+                        <strong>Password</strong>
+                    </label>
+                    <input type="password" class="form-control" id="password" name="password" th:field="${newUser.password}">
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="roles">
+                    <strong>Role</strong>
+                </label>
+                <select multiple class="form-select" size="2" id="roles" name="roles">
+                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.getCutRoleName()}"/>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success btn-lg">Add new user</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
