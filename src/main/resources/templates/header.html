@@ -13,7 +13,10 @@
       <nav class="navbar navbar-light bg-dark">
         <div class="container-fluid text-white">
           <span th:text="${currentUser.getEmail() + ' with roles:  ' + currentUser.getCutRoles()}"/>
-          <a th:href="@{/logout}" class="float-right btn text-secondary">Logout</a>
+          <form th:action="@{/logout}" th:method="POST">
+            <input type="submit" th:value="Logout" class="float-right btn text-secondary"/>
+          </form>
+          <!--<a th:href="@{/logout}" class="float-right btn text-secondary">c</a>-->
         </div>
       </nav>
     </div>

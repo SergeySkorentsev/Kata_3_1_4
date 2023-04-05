@@ -11,6 +11,7 @@ import web.service.UserService;
 import java.security.Principal;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     private UserService userService;
@@ -21,7 +22,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/admin")
+    @GetMapping()
     public String listUsers(ModelMap model, Principal principal) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("currentUser", userService.findUserByUsername(principal.getName()));
@@ -30,38 +31,38 @@ public class AdminController {
         return "/admin/admin";
     }
 
-    @GetMapping(value="/admin/create")
+    @GetMapping("/create")
     public String createUser(ModelMap model) {
         model.addAttribute("newUser", new User());
         model.addAttribute("roles", roleService.getAllRoles());
         return "/admin/create";
     }
 
-    @PostMapping("/admin/create")
+    @PostMapping("/create")
     public String addUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/edit/user/{id}")
+    @GetMapping("/edit/user/{id}")
     public String editUser(ModelMap model, @PathVariable("id") int id) {
         model.addAttribute(userService.getUser(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "/admin/edit";
     }
 
-    @PatchMapping("/admin/edit/user/{id}")
+    @PatchMapping("/edit/user/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userService.updateUser(user);
         return "redirect:/admin";
     }
-    @GetMapping("/admin/delete/user/{id}")
+    @GetMapping("/delete/user/{id}")
     public String delete(ModelMap model, @PathVariable("id") int id) {
         model.addAttribute(userService.getUser(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "/admin/delete";
     }
-    @DeleteMapping("/admin/delete/user/{id}")
+    @DeleteMapping("/delete/user/{id}")
     public String deleteUser(@PathVariable("id") int id) {
         User user = userService.getUser(id);
         userService.deleteUser(user);
